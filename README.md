@@ -32,8 +32,8 @@ Estructura del Proyecto
 El proyecto está organizado de la siguiente manera:
 
 """
-├── controllers/          # Controladores para manejar la lógica de las rutas
-│   ├── authController.js
+___controllers/          # Controladores para manejar la lógica de las rutas
+│______authController.js
 │   └── documentController.js
 ├── routes/               # Rutas de la API
 │   ├── authRoutes.js
