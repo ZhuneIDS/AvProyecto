@@ -32,7 +32,7 @@ Estructura del Proyecto
 
 El proyecto está organizado de la siguiente manera:
 
-.
+
 ├── controllers/          # Controladores para manejar la lógica de las rutas
 
 │   ├── authController.js      # Maneja la lógica de autenticación (registro, login, JWT)
