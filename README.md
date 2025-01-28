@@ -13,6 +13,7 @@ Configuración del Proyecto
 Clona el repositorio:
 
 git clone https://github.com/ZhuneIDS/AVPROYECTO.git
+
 cd "tu-repositorio"
 
 npm install
@@ -31,15 +32,34 @@ Estructura del Proyecto
 
 El proyecto está organizado de la siguiente manera:
 
-"""
-___controllers/          # Controladores para manejar la lógica de las rutas
-│______authController.js
-│   └── documentController.js
+.
+├── controllers/          # Controladores para manejar la lógica de las rutas
+
+│   ├── authController.js      # Maneja la lógica de autenticación (registro, login, JWT)
+
+│   └── documentController.js  # Maneja operaciones CRUD para documentos
+
 ├── routes/               # Rutas de la API
-│   ├── authRoutes.js
-│   └── documentRoutes.js
+
+│   ├── authRoutes.js          # Rutas relacionadas con la autenticación (/api/auth)
+
+│   └── documentRoutes.js      # Rutas para manipular documentos (/api/documents)
+
 ├── models/               # Modelos de MongoDB (por ejemplo, User.js)
+
+│   └── User.js                # Esquema de usuario (username, password, email)
+
 ├── front/                # Archivos estáticos del frontend (HTML, CSS, JS)
-├── .env                  # Archivo de configuración de variables de entorno
-├── app.js                # Archivo principal del backend
-└── README.md             # Este archivo """
+
+│   ├── index.html             # Página principal del frontend
+
+│   ├── styles.css             # Archivo CSS para estilos
+
+│   └── app.js                 # Lógica del frontend para interactuar con la API
+
+├── .env                  # Archivo de configuración de variables de entorno (MongoDB URI, JWT_SECRET, etc.)
+
+├── app.js                # Archivo principal del backend, define rutas y conexión a MongoDB
+
+└── README.md             # Documentación del proyecto
+
