@@ -31,7 +31,7 @@ Estructura del Proyecto
 
 El proyecto está organizado de la siguiente manera:
 
-.
+"""
 ├── controllers/          # Controladores para manejar la lógica de las rutas
 │   ├── authController.js
 │   └── documentController.js
@@ -42,4 +42,4 @@ El proyecto está organizado de la siguiente manera:
 ├── front/                # Archivos estáticos del frontend (HTML, CSS, JS)
 ├── .env                  # Archivo de configuración de variables de entorno
 ├── app.js                # Archivo principal del backend
-└── README.md             # Este archivo
+└── README.md             # Este archivo """
