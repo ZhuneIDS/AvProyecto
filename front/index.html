@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Frontend-Backend Example</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <h1>Desarrollo Full Stack Av Proyecto </h1>
+    <button id="fetchMessage">Ver Documentos de Base de Datos</button>
+    <p id="message">Documentos apareceran aqui...</p>
+
+    <!-- Register Form -->
+    <div id="registerForm" style="margin-top: 20px;">
+        <h2>Registro de Usuario</h2>
+        <input type="text" id="registerUsername" placeholder="Enter username" />
+        <input type="password" id="registerPassword" placeholder="Enter password" />
+        <input type="email" id="registerEmail" placeholder="Enter email" />
+        <button id="registerButton">Registrar</button>
+    </div>
+
+    <!-- Login/Logout Button -->
+    <button id="loginButton" style="position: absolute; top: 20px; right: 20px;">Login</button>
+
+    <!-- Form to Add Documents -->
+    <div id="addDocumentForm" style="display: none; margin-top: 20px;">
+        <input type="text" id="documentKey" placeholder="Enter document key" />
+        <input type="text" id="documentValue" placeholder="Enter document value" />
+        <button id="addDocumentButton">Aggregar documento</button>
+    </div>
+    
+
+    <script src="app.js"></script>
+</body>
+
+</html>

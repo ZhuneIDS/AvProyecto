@@ -1,0 +1,110 @@
+/* General */
+body {
+    font-family: 'Orbitron', sans-serif; /* mismo que en extension */
+    background: linear-gradient(135deg, #0d1117, #161b22); /* gradiante de color */
+    color: #c9d1d9; /* texto blanco */
+    margin: 0;
+    padding: 20px;
+    text-align: center;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+/* head */
+h1 {
+    font-size: 2.5rem;
+    color: #58a6ff; /* azul claro */
+    margin-bottom: 20px;
+    text-shadow: 0 0 10px rgba(88, 166, 255, 0.8); /* brillo azul */
+}
+
+/* bottones*/
+button {
+    padding: 15px 30px;
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #0d1117; /* para el contraste */
+    background: linear-gradient(90deg, #58a6ff, #006dff);
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    box-shadow: 0 0 15px rgba(88, 166, 255, 0.6), 0 0 30px rgba(88, 166, 255, 0.4); /* effecto brillo */
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+button:hover {
+    background: linear-gradient(90deg, #006dff, #003d99); /* effecto hover */
+    transform: scale(1.1); /* Slight zoom on hover */
+    box-shadow: 0 0 25px rgba(88, 166, 255, 0.8), 0 0 40px rgba(88, 166, 255, 0.6); /* Brighter glow */
+}
+
+/* Paragraph for Message */
+p {
+    margin-top: 20px;
+    font-size: 1.2rem;
+    color: #c9d1d9;
+    background: rgba(22, 27, 34, 0.8); /* Slightly transparent background */
+    padding: 15px 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(88, 166, 255, 0.5); /* Subtle blue glow */
+    display: inline-block;
+}
+
+/* Top-Right Login Button */
+#loginButton {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    padding: 10px 20px;
+    font-size: 1rem;
+    font-weight: bold;
+    color: #0d1117;
+    background: linear-gradient(90deg, #58a6ff, #006dff);
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    box-shadow: 0 0 15px rgba(88, 166, 255, 0.6), 0 0 30px rgba(88, 166, 255, 0.4);
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+#loginButton:hover {
+    background: linear-gradient(90deg, #006dff, #003d99);
+    transform: scale(1.1);
+    box-shadow: 0 0 25px rgba(88, 166, 255, 0.8), 0 0 40px rgba(88, 166, 255, 0.6);
+}
+
+/* Add Document Form */
+#addDocumentForm {
+    margin-top: 20px;
+    text-align: center;
+}
+
+#documentInput {
+    padding: 10px;
+    font-size: 1rem;
+    border-radius: 10px;
+    border: 1px solid #58a6ff;
+    margin-right: 10px;
+}
+
+#addDocumentButton {
+    padding: 10px 20px;
+    font-size: 1rem;
+    font-weight: bold;
+    color: #0d1117;
+    background: linear-gradient(90deg, #58a6ff, #006dff);
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    box-shadow: 0 0 15px rgba(88, 166, 255, 0.6), 0 0 30px rgba(88, 166, 255, 0.4);
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+#addDocumentButton:hover {
+    background: linear-gradient(90deg, #006dff, #003d99);
+    transform: scale(1.1);
+    box-shadow: 0 0 25px rgba(88, 166, 255, 0.8), 0 0 40px rgba(88, 166, 255, 0.6);
+}
