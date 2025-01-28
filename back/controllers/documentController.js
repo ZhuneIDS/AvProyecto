@@ -1,70 +1,80 @@
-let db; // Database instance
+let db; // instancia de la base de datos
+// Importar dependencias
 const authenticateJWT = require('../middleware/authMiddleware').authenticateJWT;
 const { ObjectId } = require("mongodb"); // Import ObjectId to work with MongoDB's _id
 
-// Set the database instance
+// Funcion para establecer la base de datos
 function setDb(database) {
     db = database;
 }
+
+// Middleware para verificar la conexión a la base de datos
 function checkDb(req, res, next) {
     if (!db) {
-        return res.status(503).json({ message: "Database unavailable. Please try again later." });
+        return res.status(503).json({ message: "Base de datos no disponible, intente mas tarde ..." });
     }
     next();
 }
 
-// Fetch all documents
+// Funcion para obtener los documentos de la colección
 async function getDocuments(req, res) {
     try {
         const collection = db.collection('DesarrolloFullStack');
         const documents = await collection.find({}).toArray();
         res.json(documents);
     } catch (error) {
+        console.log("probando despues de middlware");
+        
         console.error("Error fetching documents:", error, await response.text());
         res.status(500).json({ message: 'Error fetching documents' });
     }
 }
 
-// Add a document to the collection
+// Funcion para agregar un documento a la colección
 async function addDocument(req, res) {
     try {
+        // Desestructurar la llave y valor del cuerpo de la solicitud
         const { key, value } = req.body;
 
+        // Validar que la llave y valor no estén vacíos
         if (!key || !value) {
-            return res.status(400).json({ message: "Key and value are required." });
+            return res.status(400).json({ message: "LLave valor son requeridos." });
         }
 
+        // Obtener la colección de la base de datos
         const collection = db.collection("DesarrolloFullStack");
-        const document = { [key]: value }; // Create a document with a dynamic key-value pair
+        const document = { [key]: value }; // Crear un documento con la llave y valor
 
-        // Insert the document
+        // Insertar el documento en la colección
         const result = await collection.insertOne(document);
 
-        // Log the added document to the backend console
-        console.log("Document successfully added to the database:");
-        console.log(`Key: ${key}, Value: ${value}`);
+        // Log el documento agregado para debug
+        console.log("Documento agregado a base de datos:");
+        console.log(`LLave: ${key}, Valor: ${value}`);
 
-        // Respond with the added document's details
+        // Responder con el documento agregado
         res.status(201).json({
-            message: "Document added successfully",
+            message: "Documento agregado correctamente.",
             document: { id: result.insertedId, ...document }
         });
     } catch (error) {
-        console.error("Error adding document:", error.message);
-        res.status(500).json({ message: "Error adding document", error: error.message });
+        console.error("Error al agregar documento:", error.message);
+        res.status(500).json({ message: "Error al agregar documento", error: error.message });
     }
 }
 
-
+// Funcion para displayar los documentos en el frontend
 async function fetchAndDisplayDocuments(token) {
     try {
+        // Traer los documentos de la API
         const response = await fetch("/api/documents", {
             method: "GET",
             headers: { Authorization: `Bearer ${token}` },
         });
-
+        // Parsear la respuesta a JSON
         const documents = await response.json();
 
+        // Verificar si la respuesta fue exitosa
         if (response.ok) {
             const messageContainer = document.getElementById("message");
             messageContainer.innerHTML = ""; // Clear existing documents
@@ -105,72 +115,81 @@ async function fetchAndDisplayDocuments(token) {
     }
 }
 
+// Funcion para borrar un documento de la colección
 async function deleteDocument(req, res) {
+    
     try {
-        const { id } = req.params; // Retrieve the document ID from the route parameter
+        const { id } = req.params; // desestructurar el ID del documento de la URL
 
+        // Validar que el ID no esté vacío
         if (!id) {
-            return res.status(400).json({ message: "Document ID is required." });
+            return res.status(400).json({ message: "ID del documento es requerido." });
         }
 
+        // Obtener la colección de la base de datos
         const collection = db.collection("DesarrolloFullStack");
 
-        // Delete the document by its ObjectId
+        // Borra el documento de la colección
         const result = await collection.deleteOne({ _id: new ObjectId(id) });
 
+        // Verificar si el documento fue borrado
         if (result.deletedCount === 0) {
-            return res.status(404).json({ message: "Document not found." });
+            return res.status(404).json({ message: "Documento no fue borrado." });
         }
 
-        res.json({ message: "Document deleted successfully." });
+        // Responder con un mensaje de éxito
+        res.json({ message: "Documento borrado correctamente." });
     } catch (error) {
-        console.error("Error deleting document:", error.message);
-        res.status(500).json({ message: "Error deleting document.", error: error.message });
+        console.error("Error borrando documento:", error.message);
+        res.status(500).json({ message: "Error borrando documento.", error: error.message });
     }
 }
 
+// Funcion para editar un documento de la colección
 async function editDocument(req, res) {
     try {
-        const { id } = req.params; // Document ID from the URL
-        const { key, value } = req.body; // Key and value from the request body
+        // Desestructurar el ID del documento de la URL
+        const { id } = req.params; // ID del documento
+        const { key, value } = req.body; // Llave valor a editar
 
-        // Validate inputs
+        // Validar que el ID no esté vacío
         if (!id) {
-            return res.status(400).json({ message: "Document ID is required." });
+            return res.status(400).json({ message: "Id del documento requerido." });
         }
 
+        // Validar que la llave y valor no estén vacíos
         if (!key || !value) {
-            return res.status(400).json({ message: "Both key and value are required." });
+            return res.status(400).json({ message: "Llave valor son requeridos." });
         }
 
         const collection = db.collection("DesarrolloFullStack");
 
-        // Update the document
+        // Actualizar el documento en la colección
         const result = await collection.updateOne(
             { _id: new ObjectId(id) },
             { $set: { [key]: value } }
         );
 
+        // Verificar si el documento fue actualizado
         if (result.modifiedCount === 0) {
-            return res.status(404).json({ message: "Document not found or no changes made." });
+            return res.status(404).json({ message: "Documento no cambiado o no encontrado." });
         }
 
-        res.json({ message: "Document updated successfully." });
+        // Responder con un mensaje de éxito
+        res.json({ message: "Documento actualizado correctamente." });
     } catch (error) {
-        console.error("Error updating document:", error.message);
-        res.status(500).json({ message: "Error updating document.", error: error.message });
+        console.error("Error actualizando documento:", error.message);
+        res.status(500).json({ message: "Error editando documento.", error: error.message });
     }
 }
 
-
-
-
+// Exportar las funciones
 module.exports = {
     setDb,
     checkDb,
     getDocuments,
     addDocument,
-    fetchAndDisplayDocuments,
+    // fetchAndDisplayDocuments,
     deleteDocument,
     editDocument,
 

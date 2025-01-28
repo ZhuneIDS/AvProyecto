@@ -1,86 +1,99 @@
 const jwt = require('jsonwebtoken');
+
+// Importar el modelo de usuario
 const User = require('../models/user');
 
-// Register a new user
+// Registrar un usuario
 async function register(req, res) {
-    console.log("Received request to register user:", req.body);
+    //log para debug
+    console.log("Recibiendo req para registrar usuario: ", req.body);
 
+    // Desestructurar los campos del body
     const { username, password, email } = req.body;
 
-    // Log each value explicitly to ensure they are parsed correctly
+    // Log de cada campo para debug
     console.log("Username:", username);
     console.log("Password:", password);
     console.log("Email:", email);
 
+    // Validar que los campos no estén vacíos
     if (!username || !password || !email) {
-        console.error("Validation failed: Missing username, password, or email.");
-        return res.status(400).json({ message: "Username, password, and email are required." });
+        console.error("Validacion fallida: Falta username, password, o email.");
+        return res.status(400).json({ message: "Username, contraseña y correo requeridos" });
     }
 
+    // Verificar si el usuario ya existe
     try {
         const existingUser = await User.findOne({ $or: [{ username }, { email }] });
         if (existingUser) {
-            console.warn(`User already exists: ${existingUser.username} or email: ${existingUser.email}`);
-            return res.status(400).json({ message: "Username or email already exists." });
+            console.warn(`User ya existe: ${existingUser.username} o email: ${existingUser.email}`);
+            return res.status(400).json({ message: "Username o Correo ya existen" });
         }
-
+        // Crear un nuevo usuario
         const user = new User({ username, password, email });
-        console.log("User object before saving:", user);
-
-        const savedUser = await user.save();
-        console.log("User registered successfully:", savedUser);
-
-        res.status(201).json({ message: "User registered successfully." });
+        console.log("Objeto user antes de guardar:", user);
+        // Guardar el usuario en la base de datos
+        const savedUser = await user.save(); //metodo save proporcionado por mongoose
+        console.log("User guardado correctamente:", savedUser);
+        // Responder con un mensaje de éxito
+        res.status(201).json({ message: "Usuario guardado correctamente." });
     } catch (err) {
-        console.error("Error during user registration:", err.message);
-        res.status(500).json({ message: "Error registering user.", error: err.message });
+        console.error("Error durante el registro:", err.message);
+        res.status(500).json({ message: "Error registrando usuario.", error: err.message });
     }
 }
 
 
 
 
-// Login and generate JWT
+// Logeo de un usuario con JWT
 async function login(req, res) {
-    console.log("Received login request:", req.body);
+    console.log("Recibiendo req de login", req.body);
 
+    // Desestructurar los campos del body
     const { username, password } = req.body;
 
+    // validar que los campos no estén vacíos
     if (!username || !password) {
-        console.error("Validation failed: Missing username or password.");
-        return res.status(400).json({ message: "Username and password are required." });
+        console.error("Validacion fallida, falta usuario o contraseña.");
+        return res.status(400).json({ message: "Usuario y contraseña son requeridos." });
     }
 
+    // Verificar si el usuario existe
     try {
         const user = await User.findOne({ username });
         if (!user) {
-            console.warn(`Login failed: User not found - ${username}`);
-            return res.status(401).json({ message: "Invalid username or password." });
+            console.warn(`Login fallido, usuario no encontrado - ${username}`);
+            return res.status(401).json({ message: "Usuario o Contraseña invalido." });
         }
 
+        // Verificar la contraseña
         if (user.password !== password) {
-            console.warn("Login failed: Incorrect password.");
-            return res.status(401).json({ message: "Invalid username or password." });
+            console.warn("Login fallida, contraseña incorrecta.");
+            return res.status(401).json({ message: "Usuario o Contraseña incorrecto" });
         }
 
+        // Crear un token JWT
         const token = jwt.sign({ id: user._id, username: user.username }, process.env.JWT_SECRET, {
             expiresIn: "1h",
         });
 
-        console.log("Login successful for user:", username);
-        res.json({ message: "Login successful.", token });
+        // Responder con un mensaje de éxito y el token
+        console.log("Login con exito del usuario:", username);
+        res.json({ message: "Login con exito.", token });
     } catch (err) {
-        console.error("Error during login:", err.message);
-        res.status(500).json({ message: "Error logging in.", error: err.message });
+        console.error("Error durante login:", err.message);
+        res.status(500).json({ message: "Error en logging.", error: err.message });
     }
 }
 
 
-// Protected route
+// Ruta protegida
 function protectedRoute(req, res) {
-    res.json({ message: 'You have access to this protected route', user: req.user });
+    res.json({ message: 'No tienes acceso a esta ruta', user: req.user });
 }
 
+// Exportar los controladores
 module.exports = {
     register,
     login,

@@ -1,5 +1,6 @@
 const express = require('express');
 
+// Importar los controladores
 const { authenticateJWT } = require('../middleware/authMiddleware');
 const {
     checkDb,
@@ -9,19 +10,20 @@ const {
     editDocument,
 } = require("../controllers/documentController");
 
+// Crear el router
 const router = express.Router();
 
-// Fetch all documents
+// traer todos los documentos
 router.get("/", authenticateJWT, checkDb, getDocuments);
 
-// Add a new document
+// agregar un documento
 router.post("/", authenticateJWT, checkDb, addDocument);
 
-// Delete a document
+// borra un documento
 router.delete("/:id", authenticateJWT, checkDb, deleteDocument);
 
-// Edit a document
+// edita un documento
 router.put("/:id", authenticateJWT, checkDb, editDocument);
 
-
+// exportar el router
 module.exports = router;

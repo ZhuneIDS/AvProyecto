@@ -13,7 +13,7 @@ body {
     align-items: center;
 }
 
-/* head */
+/* head1 */
 h1 {
     font-size: 2.5rem;
     color: #58a6ff; /* azul claro */
@@ -37,23 +37,23 @@ button {
 
 button:hover {
     background: linear-gradient(90deg, #006dff, #003d99); /* effecto hover */
-    transform: scale(1.1); /* Slight zoom on hover */
+    transform: scale(1.1); /* Ligero incremento de tamaño*/
     box-shadow: 0 0 25px rgba(88, 166, 255, 0.8), 0 0 40px rgba(88, 166, 255, 0.6); /* Brighter glow */
 }
 
-/* Paragraph for Message */
+/* Parrafo para mensaje */
 p {
     margin-top: 20px;
     font-size: 1.2rem;
     color: #c9d1d9;
-    background: rgba(22, 27, 34, 0.8); /* Slightly transparent background */
+    background: rgba(22, 27, 34, 0.8); /* Fondo logeramente transparente*/
     padding: 15px 20px;
     border-radius: 10px;
-    box-shadow: 0 0 10px rgba(88, 166, 255, 0.5); /* Subtle blue glow */
+    box-shadow: 0 0 10px rgba(88, 166, 255, 0.5); /* Brillo azul */
     display: inline-block;
 }
 
-/* Top-Right Login Button */
+/* Botton de logeo */
 #loginButton {
     position: absolute;
     top: 20px;
@@ -70,18 +70,20 @@ p {
     transition: transform 0.2s, box-shadow 0.2s;
 }
 
+/*effecto hover de botton*/
 #loginButton:hover {
     background: linear-gradient(90deg, #006dff, #003d99);
     transform: scale(1.1);
     box-shadow: 0 0 25px rgba(88, 166, 255, 0.8), 0 0 40px rgba(88, 166, 255, 0.6);
 }
 
-/* Add Document Form */
+/* Form de agregado de documento*/
 #addDocumentForm {
     margin-top: 20px;
     text-align: center;
 }
 
+/*input del form de documento*/
 #documentInput {
     padding: 10px;
     font-size: 1rem;
@@ -90,6 +92,7 @@ p {
     margin-right: 10px;
 }
 
+/*botton de agregar documento*/
 #addDocumentButton {
     padding: 10px 20px;
     font-size: 1rem;
@@ -103,6 +106,7 @@ p {
     transition: transform 0.2s, box-shadow 0.2s;
 }
 
+/*effecto hover de botton*/
 #addDocumentButton:hover {
     background: linear-gradient(90deg, #006dff, #003d99);
     transform: scale(1.1);
